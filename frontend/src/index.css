@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(45, 212, 191, 0.12), transparent 40%),
+    radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.1), transparent 30%),
+    #0b1220;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.grid-layout {
+  min-height: 260px;
+}
+
+.react-grid-placeholder {
+  background: rgba(45, 212, 191, 0.25);
+  border-radius: 0.5rem;
+}
+
+.react-grid-item > .react-resizable-handle::after {
+  border-right-color: rgba(229, 231, 235, 0.8);
+  border-bottom-color: rgba(229, 231, 235, 0.8);
+}
+
+.widget-drag-handle {
+  touch-action: none;
+}
