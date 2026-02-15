@@ -1,4 +1,4 @@
-# Telegram Mini BI Platform (MVP)
+ï»¿# Telegram Mini BI Platform (MVP)
 
 AI-first analytics inside Telegram WebApp.
 
@@ -14,35 +14,35 @@ AI-first analytics inside Telegram WebApp.
 ```text
 .
 +-- backend/
-¦   +-- app/
-¦   ¦   +-- ai/
-¦   ¦   ¦   +-- prompts/
-¦   ¦   ¦   +-- agents.py
-¦   ¦   ¦   L-- ollama_client.py
-¦   ¦   +-- api/
-¦   ¦   ¦   +-- v1/
-¦   ¦   ¦   +-- routes.py
-¦   ¦   ¦   L-- schemas.py
-¦   ¦   +-- models/
-¦   ¦   +-- services/
-¦   ¦   +-- utils/
-¦   ¦   L-- main.py
-¦   +-- data/uploads/
-¦   +-- .env.example
-¦   +-- Dockerfile
-¦   L-- requirements.txt
+Â¦   +-- app/
+Â¦   Â¦   +-- ai/
+Â¦   Â¦   Â¦   +-- prompts/
+Â¦   Â¦   Â¦   +-- agents.py
+Â¦   Â¦   Â¦   L-- ollama_client.py
+Â¦   Â¦   +-- api/
+Â¦   Â¦   Â¦   +-- v1/
+Â¦   Â¦   Â¦   +-- routes.py
+Â¦   Â¦   Â¦   L-- schemas.py
+Â¦   Â¦   +-- models/
+Â¦   Â¦   +-- services/
+Â¦   Â¦   +-- utils/
+Â¦   Â¦   L-- main.py
+Â¦   +-- data/uploads/
+Â¦   +-- .env.example
+Â¦   +-- Dockerfile
+Â¦   L-- requirements.txt
 +-- frontend/
-¦   +-- src/
-¦   ¦   +-- components/
-¦   ¦   +-- pages/
-¦   ¦   +-- services/
-¦   ¦   +-- store/
-¦   ¦   +-- types/
-¦   ¦   L-- App.tsx
-¦   +-- .env.example
-¦   +-- Dockerfile
-¦   +-- nginx.conf
-¦   L-- package.json
+Â¦   +-- src/
+Â¦   Â¦   +-- components/
+Â¦   Â¦   +-- pages/
+Â¦   Â¦   +-- services/
+Â¦   Â¦   +-- store/
+Â¦   Â¦   +-- types/
+Â¦   Â¦   L-- App.tsx
+Â¦   +-- .env.example
+Â¦   +-- Dockerfile
+Â¦   +-- nginx.conf
+Â¦   L-- package.json
 +-- docker-compose.yml
 L-- .gitignore
 ```
@@ -53,8 +53,8 @@ Create `backend/.env` from `backend/.env.example`.
 
 ```env
 DATABASE_URL=sqlite:///./data/mini_bi.db
-OLLAMA_BASE_URL=http://ollama:11434
-OLLAMA_MODEL=qwen2.5:latest
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=kimi-k2.5:cloud
 TELEGRAM_BOT_TOKEN=your_bot_token_here
 MAX_FILE_SIZE_MB=10
 MAX_ROWS=100000
@@ -109,17 +109,15 @@ docker compose up -d --build
 
 - Frontend: `http://<server-ip>:5173`
 - Backend health: `http://<server-ip>:8000/health`
-- Ollama API: `http://<server-ip>:11434`
+- Ollama API (external on server): `http://localhost:11434`
 
 ## Ollama Setup
 
-If using compose Ollama container:
+This project expects Ollama to already be running on the server host.
 
-```bash
-docker exec -it mini_bi_ollama ollama pull qwen2.5:latest
-```
-
-If using external Ollama, set `OLLAMA_BASE_URL` in `backend/.env` accordingly.
+- Set OLLAMA_BASE_URL=http://localhost:11434
+- Set OLLAMA_MODEL=kimi-k2.5:cloud
+- docker-compose.yml does not include an Ollama service
 
 ## MVP Features Implemented
 
@@ -150,3 +148,5 @@ git branch -M main
 git remote add origin <your-repo-url>
 git push -u origin main
 ```
+
+
