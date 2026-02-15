@@ -6,7 +6,7 @@ services:
       context: ./backend
     container_name: mini_bi_backend
     env_file:
-      - ./backend/.env
+      - ./backend/.env.example
     volumes:
       - ./backend/data:/app/data
     network_mode: host

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+п»їimport { useRef, useState } from 'react'
 import ReactECharts from 'echarts-for-react'
 
 import type { AIQueryResponse } from '../types/dataset'
@@ -26,13 +26,13 @@ const ChartCard = ({ data, fill = false, onExplain }: Props) => {
     series: isComparison
       ? [
           {
-            name: 'Текущий период',
+            name: 'РўРµРєСѓС‰РёР№ РїРµСЂРёРѕРґ',
             type: 'line',
             data: chart_data.map((d) => d.current ?? null),
             smooth: true,
           },
           {
-            name: 'Предыдущий период',
+            name: 'РџСЂРµРґС‹РґСѓС‰РёР№ РїРµСЂРёРѕРґ',
             type: 'line',
             data: chart_data.map((d) => d.previous ?? null),
             smooth: true,
@@ -54,20 +54,23 @@ const ChartCard = ({ data, fill = false, onExplain }: Props) => {
       const res = await fetch(dataUrl)
       const blob = await res.blob()
 
-      if (navigator.clipboard && 'write' in navigator.clipboard) {
-        // @ts-expect-error ClipboardItem may not be in older TS libs
-        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
-        setStatus('PNG скопирован в буфер')
+      type ClipboardItemCtor = new (items: Record<string, Blob>) => unknown
+      const itemCtor = (window as Window & { ClipboardItem?: ClipboardItemCtor }).ClipboardItem
+
+      if (navigator.clipboard && 'write' in navigator.clipboard && itemCtor) {
+        const item = new itemCtor({ 'image/png': blob })
+        await navigator.clipboard.write([item as ClipboardItem])
+        setStatus('PNG СЃРєРѕРїРёСЂРѕРІР°РЅ РІ Р±СѓС„РµСЂ')
       } else {
         const a = document.createElement('a')
         a.href = dataUrl
         a.download = 'chart.png'
         a.click()
-        setStatus('Скачан PNG (буфер недоступен)')
+        setStatus('РЎРєР°С‡Р°РЅ PNG (Р±СѓС„РµСЂ РЅРµРґРѕСЃС‚СѓРїРµРЅ)')
       }
       setTimeout(() => setStatus(''), 1600)
     } catch {
-      setStatus('Не удалось скопировать PNG')
+      setStatus('РќРµ СѓРґР°Р»РѕСЃСЊ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ PNG')
       setTimeout(() => setStatus(''), 1600)
     }
   }
