@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     max_file_size_mb: int = 10
     max_rows: int = 100000
     upload_dir: str = "./data/uploads"
+    llm_max_attempts: int = 4
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 

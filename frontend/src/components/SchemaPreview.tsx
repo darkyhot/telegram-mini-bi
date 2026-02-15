@@ -2,12 +2,12 @@ import type { SchemaColumn } from '../types/dataset'
 
 const SchemaPreview = ({ schema }: { schema: SchemaColumn[] }) => {
   return (
-    <div className="rounded-xl bg-card/70 border border-white/10 overflow-hidden">
-      <div className="px-4 py-3 border-b border-white/10 text-sm text-muted">Schema</div>
+    <div className="panel overflow-hidden">
+      <div className="px-4 py-3 border-b border-white/10 text-sm text-cyan-100/75">Schema</div>
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full text-sm min-w-[560px]">
           <thead>
-            <tr className="text-left text-muted">
+            <tr className="text-left text-cyan-100/65">
               <th className="px-4 py-2">Column</th>
               <th className="px-4 py-2">Type</th>
               <th className="px-4 py-2">Missing</th>

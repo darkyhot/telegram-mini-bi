@@ -1,0 +1,24 @@
+You generate a draft dashboard plan from user intent.
+
+Input schema_json:
+{schema}
+
+Input sample_rows_json:
+{sample}
+
+User prompt:
+{prompt}
+
+Return strict valid JSON only:
+{{
+  "widgets": [
+    {{"title": "string in Russian", "question": "analytics question in Russian"}},
+    {{"title": "string in Russian", "question": "analytics question in Russian"}}
+  ]
+}}
+
+Rules:
+- 2 to 4 widgets.
+- Questions must be answerable from schema.
+- All text must be in Russian.
+- No markdown.

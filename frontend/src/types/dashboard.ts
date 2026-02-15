@@ -6,8 +6,10 @@ export type DashboardWidget = {
     x: string
     y: string | null
     aggregation?: string | null
+    comparison?: boolean
+    period?: 'day' | 'week' | 'month'
   }
-  chart_data: Array<{ x: string; y: number }>
+  chart_data: Array<{ x: string; y?: number; current?: number; previous?: number | null }>
   layout: { x: number; y: number; w: number; h: number }
 }
 
@@ -22,4 +24,6 @@ export type Dashboard = {
   config: DashboardConfig
   share_token: string | null
   is_public: boolean
+  created_at: string
+  updated_at: string
 }

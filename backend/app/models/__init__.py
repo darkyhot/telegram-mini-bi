@@ -1,3 +1,3 @@
-from app.models.entities import Dashboard, Dataset, User
+from app.models.entities import AIRun, Dashboard, DashboardComment, DashboardTeamShare, Dataset, Team, TeamMember, User
 
-__all__ = ["Dashboard", "Dataset", "User"]
+__all__ = ["AIRun", "Dashboard", "DashboardComment", "DashboardTeamShare", "Dataset", "Team", "TeamMember", "User"]

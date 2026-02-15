@@ -14,7 +14,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive)
 
 const DashboardCanvas = ({ widgets, onLayout }: Props) => {
   const layouts = {
-    lg: widgets.map((w) => ({ i: w.id, ...w.layout, minW: 3, minH: 3 })),
+    lg: widgets.map((w) => ({ i: w.id, ...w.layout, minW: 1, minH: 3 })),
   }
 
   const syncWidgets = (next: Layout[]) => {
@@ -26,28 +26,29 @@ const DashboardCanvas = ({ widgets, onLayout }: Props) => {
   }
 
   return (
-    <div className="rounded-xl border border-white/10 bg-card/70 p-3 overflow-hidden">
+    <div className="panel p-3 overflow-hidden">
       <ResponsiveGridLayout
         className="grid-layout"
         layouts={layouts}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-        rowHeight={72}
+        cols={{ lg: 12, md: 10, sm: 6, xs: 2, xxs: 1 }}
+        rowHeight={68}
         compactType="vertical"
         preventCollision={false}
+        autoSize
         isResizable
         isDraggable
         draggableHandle=".widget-drag-handle"
         draggableCancel=".widget-content"
         resizeHandles={['se']}
-        margin={[12, 12]}
+        margin={[10, 10]}
         containerPadding={[0, 0]}
         onDragStop={syncWidgets}
         onResizeStop={syncWidgets}
       >
         {widgets.map((w) => (
-          <div key={w.id} className="rounded-md overflow-hidden bg-slate-900/60 border border-white/10 h-full flex flex-col">
-            <div className="widget-drag-handle px-3 py-2 text-xs text-muted border-b border-white/10 cursor-move select-none">
+          <div key={w.id} className="rounded-md overflow-hidden bg-slate-900/60 border border-white/10 h-full flex flex-col min-h-0">
+            <div className="widget-drag-handle px-3 py-2 text-xs text-cyan-100/70 border-b border-white/10 cursor-move select-none">
               {w.title}
             </div>
             <div className="widget-content flex-1 min-h-0 p-2">

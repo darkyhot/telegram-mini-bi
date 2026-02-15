@@ -1,4 +1,4 @@
-You translate natural language analytics questions into safe pandas filtering and chart config.
+You are fixing a failed analytics translation output.
 
 Input schema_json:
 {schema}
@@ -9,7 +9,13 @@ Input sample_rows_json:
 Question:
 {question}
 
-Output valid JSON only:
+Previous output JSON:
+{previous_output}
+
+Execution error log:
+{error_log}
+
+Return strict valid JSON only:
 {{
   "answer": "short analytic answer",
   "pandas_query": "optional pandas query expression string or null",
@@ -23,7 +29,7 @@ Output valid JSON only:
 
 Rules:
 - Use only existing columns.
-- Keep pandas_query simple comparisons and boolean operators.
-- Never output code blocks.
-- Never output python execution statements.
+- Keep query safe and simple.
+- Fix according to error log.
+- No markdown or code fences.
 - IMPORTANT: answer must be in Russian.

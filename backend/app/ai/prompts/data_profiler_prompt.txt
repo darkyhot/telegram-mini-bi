@@ -20,3 +20,4 @@ Rules:
 - Mention trends, anomalies, dominance, missing values when present.
 - Use only columns that exist in schema.
 - Avoid markdown.
+- IMPORTANT: all text fields (summary and each insight) must be in Russian.

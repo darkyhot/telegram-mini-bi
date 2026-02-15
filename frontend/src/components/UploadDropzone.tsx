@@ -24,7 +24,7 @@ const UploadDropzone = ({ onUpload }: Props) => {
 
   return (
     <div
-      className="rounded-xl border border-dashed border-white/20 bg-card/70 p-6 text-center shadow-glow"
+      className="panel p-6 text-center"
       onDrop={(e) => {
         e.preventDefault()
         void handleFile(e.dataTransfer.files?.[0])
@@ -38,16 +38,12 @@ const UploadDropzone = ({ onUpload }: Props) => {
         className="hidden"
         onChange={(e) => void handleFile(e.target.files?.[0])}
       />
-      <h2 className="text-lg font-medium">Drop CSV here</h2>
-      <p className="mt-2 text-sm text-muted">Max 10MB, up to 100k rows</p>
-      <button
-        className="mt-4 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-slate-950"
-        onClick={() => inputRef.current?.click()}
-        disabled={busy}
-      >
+      <h2 className="text-lg font-medium text-cyan-100">Drop CSV here</h2>
+      <p className="mt-2 text-sm text-cyan-100/70">Max 10MB, up to 100k rows</p>
+      <button className="btn-neon mt-4" onClick={() => inputRef.current?.click()} disabled={busy}>
         {busy ? 'Uploading...' : 'Choose CSV'}
       </button>
-      {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
+      {error && <p className="mt-3 text-sm text-red-400 break-words">{error}</p>}
     </div>
   )
 }

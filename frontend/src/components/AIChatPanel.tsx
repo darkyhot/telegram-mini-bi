@@ -1,48 +1,56 @@
 import { useState } from 'react'
 
-import { askAi } from '../services/api'
-import { useAppStore } from '../store/useAppStore'
+type Message = {
+  role: 'user' | 'assistant'
+  text: string
+}
 
-const AIChatPanel = () => {
-  const { dataset, telegramId, messages, pushMessage, setCandidateChart } = useAppStore()
+const AIChatPanel = ({
+  onAsk,
+  messages,
+}: {
+  onAsk: (question: string) => Promise<void>
+  messages: Message[]
+}) => {
   const [input, setInput] = useState('Where is revenue declining?')
   const [loading, setLoading] = useState(false)
 
   const submit = async () => {
-    if (!dataset || !input.trim()) return
-    pushMessage({ role: 'user', text: input })
+    if (!input.trim()) return
     setLoading(true)
     try {
-      const result = await askAi(dataset.id, telegramId, input)
-      pushMessage({ role: 'assistant', text: result.answer })
-      setCandidateChart(result)
+      await onAsk(input.trim())
       setInput('')
-    } catch (e) {
-      pushMessage({ role: 'assistant', text: e instanceof Error ? e.message : 'AI error' })
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <section className="rounded-xl border border-white/10 bg-card/70 p-4 flex flex-col gap-3">
-      <h3 className="text-sm font-medium">AI Analysis</h3>
-      <div className="max-h-64 overflow-auto space-y-2">
+    <section className="panel p-4 flex flex-col gap-3">
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="text-sm font-semibold tracking-wide">AI Analysis</h3>
+        <span className="text-xs text-cyan-200/70">chat-first mode</span>
+      </div>
+      <div className="max-h-72 overflow-auto space-y-2 pr-1">
         {messages.map((m, idx) => (
-          <div key={idx} className={`text-sm rounded-md px-3 py-2 ${m.role === 'assistant' ? 'bg-white/5' : 'bg-accent/20'}`}>
+          <div
+            key={idx}
+            className={`text-sm rounded-xl px-3 py-2 border ${m.role === 'assistant' ? 'bg-white/5 border-white/10' : 'bg-cyan-400/20 border-cyan-300/30'}`}
+          >
             {m.text}
           </div>
         ))}
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 rounded-md bg-slate-900 border border-white/10 px-3 py-2 text-sm"
-          placeholder="Ask a question"
+          className="field-input flex-1"
+          placeholder="Ask: Where did revenue drop last month?"
         />
-        <button onClick={() => void submit()} disabled={loading} className="rounded-md bg-accent px-3 py-2 text-sm text-slate-950 font-semibold">
-          {loading ? '...' : 'Ask'}
+        <button onClick={() => void submit()} disabled={loading} className="btn-neon whitespace-nowrap">
+          {loading ? 'Thinking...' : 'Ask AI'}
         </button>
       </div>
     </section>
